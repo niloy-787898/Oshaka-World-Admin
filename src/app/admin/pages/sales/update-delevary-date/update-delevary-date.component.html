@@ -1,0 +1,33 @@
+
+<div style="position: relative; width: 100%;">
+
+  <div class="header-dialog">
+    <h1 mat-dialog-title>Update Delivery Date and Time</h1>
+  </div>
+
+  <form [formGroup]="dataForm"
+        (ngSubmit)="onSubmit()"
+        autocomplete="off"
+        #templateForm="ngForm"
+        fxLayout="column" fxLayoutAlign="space-around center">
+
+    <mat-form-field appearance="outline" class="w-100 px-1" fxFlex="50" fxFlex.xs="100" (click)="deliveringDateAdmin.open()">
+      <mat-label>Delivery Date Time</mat-label>
+      <input readonly matInput [ngxMatDatetimePicker]="deliveringDateAdmin" placeholder="Enter start Date Time"
+             formControlName="deliveringDateAdmin">
+      <mat-datepicker-toggle matSuffix [for]="deliveringDateAdmin"></mat-datepicker-toggle>
+      <ngx-mat-datetime-picker #deliveringDateAdmin [showSpinners]="true" [showSeconds]="false" [stepHour]="1"
+                               [stepMinute]="1" [touchUi]="false" [color]="'primary'" [enableMeridian]="true">
+      </ngx-mat-datetime-picker>
+    </mat-form-field>
+
+
+    <div class="action">
+      <button type="button" mat-raised-button color="warn" (click)="onCloseDialog(null)">
+        Cancel
+      </button>
+      <button mat-raised-button color="primary" type="submit">{{ 'Update Delivery Date' }}</button>
+    </div>
+  </form>
+</div>
+
