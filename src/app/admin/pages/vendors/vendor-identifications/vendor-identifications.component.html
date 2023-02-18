@@ -1,0 +1,55 @@
+<div class="table-container">
+    <table>
+      <thead>
+      <tr class="table-head">
+        <th scope="col">{{'Nid Number'}}</th>
+        <th scope="col">{{'Nid Image Front'}}</th>
+        <th scope="col">{{'Nid Image Back'}}</th>
+        <th scope="col">{{'Trade License No'}}</th>
+        <th scope="col">{{'Trade License Image'}}</th>
+        <th scope="col">{{'Business License No'}}</th>
+        <th scope="col">{{'Business License Image'}}</th>
+        <!-- <th scope="col" *ngIf="vendor">{{'Total (For Your Product)'}}</th>
+        <th scope="col" *ngIf="vendor">{{'Total Recieveable (From This Order)'}}</th> -->
+       <!--  <th scope="col">{{'Action'}}</th> -->
+      </tr>
+      </thead> <!-- End Table Head -->
+      <tr >
+        <td  [attr.data-label]="'Nid Number'">{{vendorIdentification?.nidCardNo}}</td>
+        <td [attr.data-label]="'Nid Image Front'">
+          <img style="cursor: pointer;" (click)='openImageInNewTab(vendorIdentification.nidCardImageFront)' [src]="vendorIdentification? vendorIdentification.nidCardImageFront : '/assets/images/placeholder/test.png'"
+               [alt]="vendorIdentification?.nidCardNo">
+        </td>
+        <td [attr.data-label]="'Nid Image Back'">
+          <img style="cursor: pointer;" (click)='openImageInNewTab(vendorIdentification.nidCardImageBack)' [src]="vendorIdentification ? vendorIdentification.nidCardImageBack : '/assets/images/placeholder/test.png'"
+               [alt]="vendorIdentification?.nidCardNo">
+        </td>
+        <td [attr.data-label]="'Trade License No'">{{vendorIdentification?.tradeLicenseNo }}</td>
+        <td [attr.data-label]="'Image'">
+          <img style="cursor: pointer;" (click)='openImageInNewTab(vendorIdentification.tradeLicenseImage)' [src]="vendorIdentification ? vendorIdentification.tradeLicenseImage : '/assets/images/placeholder/test.png'"
+               [alt]="vendorIdentification?.nidCardNo">
+        </td>
+        <td [attr.data-label]="'Business License No'">{{vendorIdentification?.businessCardNo }}</td>
+        <td [attr.data-label]="'Image'">
+          <img style="cursor: pointer;" (click)='openImageInNewTab(vendorIdentification.businessCardImage)' [src]="vendorIdentification ? vendorIdentification.businessCardImage : '/assets/images/placeholder/test.png'"
+               [alt]="vendorIdentification?.nidCardNo">
+        </td>
+        <!-- <td [attr.data-label]="'Total (For Your Product)'" *ngIf="vendor">{{(order?.deletedProduct == false ? order.totalAmount : (order.totalAmount - order.refundAmount)) * ( 95 / 100)}}</td>
+        <td [attr.data-label]="'Total Recieveable (From This Order)'" *ngIf="vendor">{{(order?.deletedProduct == false ? order.totalAmount : (order.totalAmount - order.refundAmount)) * ( 95 / 100)}}</td> -->
+       <!--  <td [attr.data-label]="'Actions'"> -->
+          <!-- <button *ngIf="vendor" style="margin-right: 5px;" mat-mini-fab color="accent" (click)="openInfoDialog()">
+            <mat-icon>visibility</mat-icon>
+          </button> -->
+          <!-- <button *ngIf="vendor" style="margin-right: 5px;" mat-mini-fab color="accent" (click)="deleteVendorIdentificationInfo(vendorId)">
+            <mat-icon>delete</mat-icon>
+          </button> -->
+<!--            <button (click)="openUpdateOrderDialog(order._id, order.deliveryStatus)" mat-mini-fab color="accent" aria-label="Example icon-button with a heart icon">-->
+<!--              <mat-icon>edit</mat-icon>-->
+<!--            </button>-->
+<!--            <button style="margin-right: 5px;" mat-mini-fab color="warn" (click)="openConfirmDialog()">-->
+<!--              <mat-icon>delete</mat-icon>-->
+<!--            </button>-->
+       <!--  </td> -->
+      </tr><!-- End Table Body -->
+    </table>
+  </div>

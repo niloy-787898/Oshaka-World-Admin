@@ -1,0 +1,113 @@
+<div class="container-fluid">
+  <div class="filter-area">
+    <div class="select-views">
+      <mat-form-field appearance="outline" class="mat-filter-select">
+        <mat-label>Select Vendor Type</mat-label>
+        <mat-select (selectionChange)="onSelectApprove($event)">
+          <mat-option *ngFor="let data of Approvals" [value]="data">
+            <span>{{data.viewValue}}</span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="clear" *ngIf="query">
+        <button mat-raised-button color="warn" (click)="onClearFilter()">
+          <mat-icon>clear</mat-icon>
+          Clear Filter
+        </button>
+      </div>
+    </div>
+
+    <div class="search search-area">
+      <form class="search-form" #searchForm=ngForm>
+        <input #searchInput
+               style="background: aliceblue;"
+               type="text"
+               placeholder="Search here..."
+               name="searchTerm"
+               autocomplete="off"
+               ngModel
+               required>
+        <div class="icon">
+          <mat-icon>search</mat-icon>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="header">
+  <h2>Vendor List</h2>
+</div>
+
+<hr class="center-square">
+
+
+<div class="table-container">
+  <table>
+    <thead>
+    <tr class="table-head">
+      <th scope="col">{{'Vendor '}}</th>
+      <th scope="col">{{'Shop Name'}}</th>
+      <th scope="col">{{'Total Sales'}}</th>
+      <th scope="col">{{'Due'}}</th>
+      <th scope="col">{{'Received'}}</th>
+      <th scope="col">{{'Has Access'}}</th>
+      <th scope="col">{{'Approval'}}</th>
+      <th scope="col">{{'Created At'}}</th>
+      <th scope="col">{{'Actions'}}</th>
+    </tr>
+    </thead> <!-- End Table Head -->
+    <tr *ngFor="let data of vendors; let i = index">
+      <td [attr.data-label]="'Name'">{{data.vendorName}}</td>
+      <td [attr.data-label]="'Username'">{{data.shopName}}</td>
+      <td [attr.data-label]="'Total Sales'">{{data.totalAmount.toFixed(2)}}</td>
+      <td [attr.data-label]="'Due'">{{data.dueAmount.toFixed(2)}}</td>
+      <td [attr.data-label]="'Received'">{{data.receivedAmount}}</td>
+      <td [attr.data-label]="'Has Access'">{{data.hasVendorAccess}}</td>
+      <td [attr.data-label]="'Approval'">{{(data?.approved ? 'Approved' : 'Not Approved')}}</td>
+      <td [attr.data-label]="'Created At'">{{data.createdAt | date}}</td>
+      <td [attr.data-label]="'Actions'">
+        <!-- <button  style="margin-right: 5px;" mat-mini-fab color="warn" (click)="openConfirmDialog(data)">
+          <mat-icon>delete</mat-icon>
+          <mat-tooltip>Delete Vendor</mat-tooltip>
+        </button> -->
+        <button [disabled]="data.approved == true" style="margin-right: 5px;" mat-mini-fab color="accent" (click)="openApprovalConfirmDialog(data)">
+          <mat-icon>edit</mat-icon>
+          <!-- <mat-tooltip>Approve Vendor</mat-tooltip> -->
+        </button>
+        <button style="margin-right: 5px;" mat-mini-fab color="accent" [routerLink]="['/admin/orders/', data._id]">
+          <mat-icon>list</mat-icon>
+          <!-- <mat-tooltip>Orders</mat-tooltip> -->
+        </button>
+        <button [routerLink]="['edit-vendor', data._id]" mat-mini-fab color="warn"
+                aria-label="Example icon-button with a heart icon">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button style="margin-right: 5px;" mat-mini-fab color="accent" [routerLink]="['/admin/transactions/', data._id]">
+          <mat-icon>request_quote</mat-icon>
+          <!-- <mat-tooltip>Transactions</mat-tooltip> -->
+        </button>
+        <button style="margin-right: 5px;" mat-mini-fab color="primary" (click)="openUpdateAmountDialog(data)">
+          <mat-icon>edit</mat-icon>
+          <!-- <mat-tooltip>Make Payment</mat-tooltip> -->
+        </button>
+        <button style="margin-right: 5px;" mat-mini-fab color="primary"
+                [routerLink]="['/admin/vendors/vendor-details', data._id]">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button style="margin-right: 5px;" mat-mini-fab color="primary"
+                [routerLink]="['/admin/vendors/vendor-identifications', data._id]">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button style="margin-right: 5px;" mat-mini-fab color="warn" (click)="openConfirmDialogVendor(data._id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </tr><!-- End Table Body -->
+
+  </table>
+
+</div>

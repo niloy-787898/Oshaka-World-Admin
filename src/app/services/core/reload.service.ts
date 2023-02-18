@@ -5,7 +5,12 @@ import {Subject} from 'rxjs';
   providedIn: 'root'
 })
 export class ReloadService {
+
   private refreshAdmin = new Subject<void>();
+  private refreshUser = new Subject<void>();
+  private refreshProduct = new Subject<void>();
+  private refreshVendors = new Subject<void>();
+  private refreshVendorIdentification = new Subject<void>();
   private refreshData = new Subject<void>();
 
   /**
@@ -17,6 +22,44 @@ export class ReloadService {
   needRefreshData$() {
     this.refreshData.next();
   }
+
+
+
+  /**
+   * VendorIdentification
+   */
+
+  get refreshVendorIdentification$() {
+    return this.refreshVendorIdentification;
+  }
+
+  needRefreshVendorIdentification$() {
+    this.refreshVendorIdentification.next();
+  }
+
+  /**
+   * VENDOR
+   */
+
+  get refreshVendors$() {
+    return this.refreshVendors;
+  }
+
+  needRefreshVendors$() {
+    this.refreshVendors.next();
+  }
+
+  /**
+   * USER
+   */
+  get refreshProduct$() {
+    return this.refreshProduct;
+  }
+
+  needRefreshUser$() {
+    this.refreshUser.next();
+  }
+
 
   /**
    * REFRESH ADMIN DATA

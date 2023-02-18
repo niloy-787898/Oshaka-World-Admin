@@ -12,6 +12,8 @@ export const environment = {
   userBaseUrl: '/',
   userProfileUrl: '/my-profile',
   userLoginUrl: '/login',
+  vendorBaseUrl: 'vendor',
+  vendorLoginUrl: 'vendor/login',
   adminLoginUrl: 'admin/login',
   adminBaseUrl: 'admin',
   storageSecret: 'SOFT_2021_IT_1998',

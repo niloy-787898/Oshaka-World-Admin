@@ -9,6 +9,7 @@ import {environment} from '../../environments/environment';
 })
 export class AdminAuthStateGuard implements CanActivate {
   constructor(private adminService: AdminService, private router: Router) {
+
   }
 
   canActivate(

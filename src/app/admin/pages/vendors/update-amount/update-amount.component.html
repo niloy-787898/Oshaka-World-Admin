@@ -1,0 +1,75 @@
+<!--<div class="nav">-->
+<!--  <app-breadcrumb-soft></app-breadcrumb-soft>-->
+<!--</div>-->
+
+<div style="position: relative">
+    <mat-spinner *ngIf="isLoading"
+                 style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; margin: auto"
+    ></mat-spinner>
+  
+    <div class="header-dialog">
+      <h1 mat-dialog-title>Update Payment</h1>
+    </div>
+
+    <form [formGroup]="dataForm"
+          (ngSubmit)="onSubmit()"
+          autocomplete="off"
+          #templateForm="ngForm"
+          fxLayout="row wrap">
+
+  
+  <!--    <mat-form-field appearance="outline" fxFlex="100">-->
+  <!--      <mat-label>Ticket No</mat-label>-->
+  <!--      <input type="text" formControlName="_id" matInput placeholder="Enter ticket no" readonly>-->
+  <!--      <mat-error>This field is required</mat-error>-->
+  <!--    </mat-form-field>-->
+  
+      <mat-form-field appearance="outline" fxFlex="50">
+        <mat-label>Total Amount</mat-label>
+        <input type="number" formControlName="totalAmount" matInput placeholder="" readonly digitOnly>
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex="50">
+        <mat-label>Received Amount</mat-label>
+        <input type="number" formControlName="receivedAmount" matInput placeholder="" readonly digitOnly>
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex="50">
+        <mat-label>Due Amount</mat-label>
+        <input type="number" formControlName="dueAmount" matInput placeholder="" readonly digitOnly>
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex="50">
+        <mat-label>Update Payment Amount</mat-label>
+        <input type="number" formControlName="currentPayment" matInput placeholder="Enter amount to update" digitOnly>
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex="50">
+        <mat-label>Payment Method</mat-label>
+        <input type="text" formControlName="paymentMethod" matInput placeholder="Enter payment method">
+        <mat-error>This field is required</mat-error>
+      </mat-form-field> 
+
+      <mat-form-field appearance="outline" fxFlex="50">
+        <mat-label>Payment Method ID</mat-label>
+        <input type="text" formControlName="paymentMethodId" matInput placeholder="Enter payment method ID">
+        <mat-error>This field is required</mat-error>
+      </mat-form-field> 
+  
+      <div class="action">
+        <button mat-raised-button matDialogClose color="warn" type="button">{{ 'Close' }}</button>
+        <button mat-raised-button matDialogClose color="primary" type="submit">{{ 'Update' }}</button>
+      </div>
+    </form>
+  </div>
+  
+  
+  <!-- LOADING TEMPLATE -->
+  <ngx-spinner style="width: 100vw; height: 100vh" bdColor="rgba(0,0,0,0.25)" size="medium" color="#fff"
+               type="ball-clip-rotate" [fullScreen]="true"><p style="color: white"> Loading... </p></ngx-spinner>
+  
+  

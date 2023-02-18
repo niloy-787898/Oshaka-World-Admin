@@ -22,6 +22,11 @@ const routes: Routes = [
         canActivate: [CheckAuthAccessGuard]
       },
       {
+        path: 'vendors',
+        loadChildren: () => import('./vendors/vendors.module').then(m => m.VendorsModule),
+        canActivate: [CheckAuthAccessGuard]
+      },
+      {
         path: 'customization',
         loadChildren: () => import('./customization/customization.module').then(m => m.CustomizationModule),
         canActivate: [CheckAuthAccessGuard]
