@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
 
   private updateMetaData() {
     // Title
-    this.title.setTitle('heriken Admin');
+    this.title.setTitle('Oshaka World Admin');
 
     // Meta
     this.meta.addTag({name: 'author', content: 'Softlab IT'});
