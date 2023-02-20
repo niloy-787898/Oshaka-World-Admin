@@ -63,8 +63,8 @@
     <tr *ngFor="let data of vendors; let i = index">
       <td [attr.data-label]="'Name'">{{data.vendorName}}</td>
       <td [attr.data-label]="'Username'">{{data.shopName}}</td>
-      <td [attr.data-label]="'Total Sales'">{{data.totalAmount.toFixed(2)}}</td>
-      <td [attr.data-label]="'Due'">{{data.dueAmount.toFixed(2)}}</td>
+      <td [attr.data-label]="'Total Sales'">{{data?.totalAmount?data?.totalAmount.toFixed(2):0}}</td>
+      <td [attr.data-label]="'Due'">{{data.dueAmount?data.dueAmount.toFixed(2):0}}</td>
       <td [attr.data-label]="'Received'">{{data.receivedAmount}}</td>
       <td [attr.data-label]="'Has Access'">{{data.hasVendorAccess}}</td>
       <td [attr.data-label]="'Approval'">{{(data?.approved ? 'Approved' : 'Not Approved')}}</td>

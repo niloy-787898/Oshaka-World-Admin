@@ -30,7 +30,7 @@ export class VendorDataService {
   }
 
   getSingleVendorById(id: string) {
-    return this.httpClient.get<{ data: Vendor, message: string }>(API_VENDOR + 'get-single-vendor-by-id/' + id);
+    return this.httpClient.get<{ data: Vendor, message: string }>(API_VENDOR  + id);
   }
 
   getSingleVendorBySlug(slug: string) {
@@ -42,7 +42,7 @@ export class VendorDataService {
   }
 
   changeVendorStatus(id: string, data: any) {
-    return this.httpClient.put<{ message: string }>(API_VENDOR + 'change-vendor-status/' + id, data);
+    return this.httpClient.put<{ message: string }>(API_VENDOR + 'update-data/' + id, data);
   }
 
   editVendorOwnProfileInfo(data: Vendor) {

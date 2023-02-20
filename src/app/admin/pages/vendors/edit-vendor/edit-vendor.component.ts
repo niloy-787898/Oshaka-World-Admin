@@ -93,7 +93,7 @@ export class EditVendorComponent implements OnInit {
       return;
     }
     if (this.vendor) {
-      const finalData = {...this.dataForm.value, ...{_id: this.vendor._id, previousPaymentType: this.vendor.paymentReceiveType}};
+      const finalData = {...this.dataForm.value, ...{previousPaymentType: this.vendor.paymentReceiveType}};
       this.editVendor(finalData);
     }
   }
@@ -101,7 +101,7 @@ export class EditVendorComponent implements OnInit {
 
   private editVendor(data: Vendor) {
     this.spinner.show();
-    this.vendorDataService.editVendorByAdmin(data)
+    this.vendorDataService.changeVendorStatus(this.vendor._id,data)
       .subscribe(res => {
         this.uiService.success(res.message);
         this.templateForm.resetForm();

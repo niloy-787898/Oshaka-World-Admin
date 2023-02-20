@@ -49,8 +49,9 @@ export class VendorsComponent implements OnInit {
    */
   private getVendorList() {
     this.vendorDataService.getVendorsByFilter(this.query)
-      .subscribe(res => {
+      .subscribe((res:any) => {
         this.vendors = res.data;
+        console.log(this.vendors)
       }, error => {
         console.log(error);
       });
