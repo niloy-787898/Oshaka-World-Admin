@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Vendor} from "../../interfaces/common/vendor";
 import {environment} from "../../../environments/environment";
+import { FilterData } from 'src/app/interfaces/core/filter-data';
 
 const API_VENDOR = environment.apiBaseLink + '/api/vendor/';
 
@@ -15,14 +16,12 @@ export class VendorDataService {
     private httpClient: HttpClient
   ) {
   }
-
-
-  getAllVendor() {
-    return this.httpClient.get<{ data: Vendor[], message: string }>(API_VENDOR + 'get-all-vendor-list');
-  }
-
-  getVendorsByFilter(query: any) {
-    return this.httpClient.post<{ data: Vendor[], message: string }>(API_VENDOR + 'get-vendor-list-by-filter', query);
+  getAllVendors(filterData: FilterData, searchQuery?: string) {
+    let params = new HttpParams();
+    if (searchQuery) {
+      params = params.append('q', searchQuery);
+    }
+    return this.httpClient.post<{ data: Vendor[], count: number, success: boolean }>(API_VENDOR + 'get-all', filterData, {params});
   }
 
   getLoginVendorInfo() {

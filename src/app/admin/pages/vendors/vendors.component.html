@@ -10,7 +10,7 @@
         </mat-select>
       </mat-form-field>
 
-      <div class="clear" *ngIf="query">
+      <div class="clear" *ngIf="filter">
         <button mat-raised-button color="warn" (click)="onClearFilter()">
           <mat-icon>clear</mat-icon>
           Clear Filter
@@ -66,7 +66,7 @@
       <td [attr.data-label]="'Total Sales'">{{data?.totalAmount?data?.totalAmount.toFixed(2):0}}</td>
       <td [attr.data-label]="'Due'">{{data.dueAmount?data.dueAmount.toFixed(2):0}}</td>
       <td [attr.data-label]="'Received'">{{data.receivedAmount}}</td>
-      <td [attr.data-label]="'Has Access'">{{data.hasVendorAccess}}</td>
+      <td [attr.data-label]="'Has Access'">{{data.hasAccess}}</td>
       <td [attr.data-label]="'Approval'">{{(data?.approved ? 'Approved' : 'Not Approved')}}</td>
       <td [attr.data-label]="'Created At'">{{data.createdAt | date}}</td>
       <td [attr.data-label]="'Actions'">
