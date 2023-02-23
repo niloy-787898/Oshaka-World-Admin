@@ -9,6 +9,8 @@ import {VendorDataService} from "../../../services/common/vendor-data.service";
 import {Select} from "../../../interfaces/core/select";
 import {Vendor} from "../../../interfaces/common/vendor";
 import {ReloadService} from "../../../services/core/reload.service";
+import { FilterData } from 'src/app/interfaces/core/filter-data';
+import { Pagination } from 'src/app/interfaces/core/pagination';
 
 
 @Component({
@@ -25,9 +27,15 @@ export class VendorsComponent implements OnInit {
     {viewValue : 'Approved', value: {approved: true}},
     {viewValue : 'Not Approved', value: {approved: false}}
   ];
-
-  // Query
-  query = {};
+  // Sort
+  sortQuery = {createdAt: -1};
+    // Pagination
+  currentPage = 1;
+  totalVendors = 0;
+  usersPerPage = 10;
+  totalVendorsStore = 0;
+  // FilterData
+  filter: any = null;
 
   constructor(
     private dialog: MatDialog,
@@ -48,7 +56,30 @@ export class VendorsComponent implements OnInit {
    * HTTP REQ HANDLE
    */
   private getVendorList() {
-    this.vendorDataService.getVendorsByFilter(this.query)
+    const pagination: Pagination = {
+      pageSize: Number(this.usersPerPage),
+      currentPage: Number(this.currentPage) - 1
+    };
+
+    // Select
+    const mSelect = {
+      vendorName: 1,
+      shopName: 1,
+      totalAmount: 1,
+      dueAmount: 1,
+      receivedAmount: 1,
+      approved: 1,
+      createdAt: 1,
+      hasAccess: 1,
+    }
+
+    const filterData: FilterData = {
+      pagination: pagination,
+      filter: this.filter,
+      select: mSelect,
+      sort: this.sortQuery
+    }
+    this.vendorDataService.getAllVendors(filterData)
       .subscribe((res:any) => {
         this.vendors = res.data;
         console.log(this.vendors)
@@ -131,12 +162,12 @@ export class VendorsComponent implements OnInit {
   }
 
   onSelectApprove($event: MatOptionSelectionChange) {
-    this.query = $event.source.value.value;
+    this.filter = $event.source.value.value;
     this.reloadService.needRefreshVendors$();
   }
 
   onClearFilter() {
-    this.query = {};
+    this.filter = null;
     this.reloadService.needRefreshVendors$();
   }
 
