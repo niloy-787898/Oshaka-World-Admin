@@ -1,0 +1,92 @@
+<div class="p-1">
+    <mat-card class="p-0">
+      <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
+        <h2 class="pl-1" *ngIf="!vendor">Transaction List</h2>
+        <h2 class="pl-1" *ngIf="vendor">Transaction List of : {{vendor?.shopName}} - {{vendor?.vendorName}} - {{vendor?.phoneNo}} - {{vendor?.email}} - {{vendor?.shopZone}} - {{vendor?.shopArea}}</h2>
+      </div>
+  
+      <div class="table-container">
+        <table>
+          <thead>
+          <tr class="table-head">
+            <th scope="col">{{'Order'}}</th>
+            <th scope="col">{{'Date'}}</th>
+            <th scope="col">{{'Payment Method'}}</th>
+            <th scope="col">{{'Payment Status'}}</th>
+            <th scope="col" *ngIf="!vendor">{{'Total'}}</th>
+            <th scope="col" *ngIf="!vendor">{{'City'}}</th>
+            <!-- <th scope="col" *ngIf="vendor">{{'Total (For Your Product)'}}</th>
+            <th scope="col" *ngIf="vendor">{{'Total Recieveable (From This Order)'}}</th> -->
+            <th scope="col">{{'Action'}}</th>
+          </tr>
+          </thead> <!-- End Table Head -->
+          <tr *ngFor="let order of orders | paginate: { itemsPerPage: productsPerPage, currentPage: currentPage, totalItems: totalProducts }; let i = index">
+            <td [attr.data-label]="'Order'">#{{order._id | slice:-6}}</td>
+            <td [attr.data-label]="'Date'">{{order.checkoutDate | date}}</td>
+            <td [attr.data-label]="'Payment Method'">{{order.paymentMethod | slugToNormal: '_'}}</td>  <!--orderStatus missing -->
+            <td [attr.data-label]="'Payment Status'"
+                [ngClass]="[order.paymentStatus === 'paid' ? 'paid' : 'unpaid']">{{order.paymentStatus | slugToNormal}}</td>
+            <td [attr.data-label]="'Total'" *ngIf="!vendor">{{order.totalAmount}}</td>
+            <td [attr.data-label]="'City'" *ngIf="!vendor">{{order.city}}</td>
+            <!-- <td [attr.data-label]="'Total (For Your Product)'" *ngIf="vendor">{{(order?.deletedProduct == false ? order.totalAmount : (order.totalAmount - order.refundAmount)) * ( 95 / 100)}}</td>
+            <td [attr.data-label]="'Total Recieveable (From This Order)'" *ngIf="vendor">{{(order?.deletedProduct == false ? order.totalAmount : (order.totalAmount - order.refundAmount)) * ( 95 / 100)}}</td> -->
+            <td [attr.data-label]="'Actions'">
+              <button *ngIf="!vendor" style="margin-right: 5px;" mat-mini-fab color="accent"
+                      [routerLink]="['/admin/orders/order-details', order._id]">
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button *ngIf="vendor" style="margin-right: 5px;" mat-mini-fab color="accent"
+                      [routerLink]="['/admin/orders/order-details', order._id, vendor?._id]">
+                <mat-icon>visibility</mat-icon>
+              </button>
+  <!--            <button (click)="openUpdateOrderDialog(order._id, order.deliveryStatus)" mat-mini-fab color="accent" aria-label="Example icon-button with a heart icon">-->
+  <!--              <mat-icon>edit</mat-icon>-->
+  <!--            </button>-->
+  <!--            <button style="margin-right: 5px;" mat-mini-fab color="warn" (click)="openConfirmDialog()">-->
+  <!--              <mat-icon>delete</mat-icon>-->
+  <!--            </button>-->
+            </td>
+          </tr><!-- End Table Body -->
+        </table>
+      </div>
+    </mat-card>
+  </div>
+  
+  
+  <!--<div class="pagination-container">-->
+  <!--  <pagination-controls-->
+  <!--    class="product-pagination"-->
+  <!--    [autoHide]="true"-->
+  <!--    [maxSize]="15"-->
+  <!--    (pageChange)="onPageChanged($event)">-->
+  <!--  </pagination-controls>-->
+  <!--</div>     &lt;!&ndash; END PAGINATION &ndash;&gt;-->
+  
+  
+  <!--&lt;!&ndash; LOADING TEMPLATE &ndash;&gt;-->
+  <!--<ngx-spinner style="width: 100vw; height: 100vh" bdColor="rgba(0,0,0,0.25)" size="medium" color="#fff"-->
+  <!--             type="ball-clip-rotate" [fullScreen]="true"><p style="color: white"> Loading... </p></ngx-spinner>-->
+  
+  <div class="pagination-container" *ngIf="orders.length > 0">
+    <mat-card class="p-0 text-center">
+      <pagination-controls
+        class="product-pagination"
+        autoHide="true"
+        maxSize="10"
+        (pageChange)="onPageChanged($event)">
+      </pagination-controls>
+    </mat-card>
+  </div>
+  
+  <!-- LOADING TEMPLATE -->
+  <ngx-spinner style="width: 100vw; height: 100vh" bdColor="rgba(0,0,0,0.25)" size="medium" color="#fff"
+               type="ball-clip-rotate" [fullScreen]="true"><p style="color: white"> Loading... </p></ngx-spinner>
+  
+  
+  <!-- NO DATA TEMPLATE -->
+  <ng-template #noData>
+    <div style="margin-top: 50px; text-align: center">
+      <h2>No Product Found</h2>
+    </div>
+  </ng-template>
+  

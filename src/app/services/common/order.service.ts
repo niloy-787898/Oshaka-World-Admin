@@ -4,6 +4,7 @@ import {environment} from '../../../environments/environment';
 import {ResponsePayload} from '../../interfaces/core/response-payload.interface';
 import {Order} from '../../interfaces/common/order.interface';
 import {FilterData} from '../../interfaces/core/filter-data';
+import { Pagination } from 'src/app/interfaces/core/pagination';
 
 const API_ORDER = environment.apiBaseLink + '/api/order/';
 
@@ -48,6 +49,60 @@ export class OrderService {
     return this.httpClient.post<{ data: Order[], count: number, success: boolean }>(API_ORDER + 'get-all', filterData, {params});
   }
 
+  getAllTransactionByAdmin(pagination?: Pagination, select?: string) {
+    let params = new HttpParams();
+
+    if (pagination) {
+      params = params.append('pageSize', pagination.pageSize);
+      params = params.append('page', pagination.currentPage);
+      if (select) {
+        params = params.append('select', select);
+      }
+      return this.httpClient.get<{ data: Order[], count: number, message?: string }>
+      (API_ORDER + 'get-all-transaction-by-admin', {params});
+    } else {
+      if (select) {
+        params = params.append('select', select);
+      }
+      return this.httpClient.get<{ data: Order[], count: number, message?: string }>
+      (API_ORDER + 'get-all-transaction-by-admin', {params});
+    }
+  }
+
+ 
+  getAllVendorTransactionByAdmin(vendorId: string, pagination ?: Pagination, select ?: string) {
+    let params = new HttpParams();
+
+    if (pagination) {
+      params = params.append('pageSize', pagination.pageSize);
+      params = params.append('page', pagination.currentPage);
+      if (select) {
+        params = params.append('select', select);
+      }
+      return this.httpClient.get < {
+        data: Order[],
+        count: number,
+        message ?: string
+      } >
+      (API_ORDER + 'get-all-vendor-transactions-by-admin/' + vendorId, {
+        params
+      });
+    } else {
+      if (select) {
+        params = params.append('select', select);
+      }
+      return this.httpClient.post < {
+        data: Order[],
+        count: number,
+        message ?: string
+      } >
+      (API_ORDER + 'get-all-vendor-transactions-by-admin/' + vendorId, {
+        params
+      });
+    }
+  }
+
+  
   getOrderById(id: string, select?: string) {
     let params = new HttpParams();
     if (select) {
