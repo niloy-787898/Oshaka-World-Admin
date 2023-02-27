@@ -14,6 +14,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {VendorDetailsComponent} from './vendor-details/vendor-details.component';
 import {EditVendorComponent} from './edit-vendor/edit-vendor.component';
 import { VendorIdentificationsComponent } from './vendor-identifications/vendor-identifications.component';
+import { TransactionsComponent } from './transactions/transactions.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { VendorIdentificationsComponent } from './vendor-identifications/vendor-
     UpdateAmountComponent,
     VendorDetailsComponent,
     EditVendorComponent,
-    VendorIdentificationsComponent
+    VendorIdentificationsComponent,
+    TransactionsComponent
   ],
   imports: [
     CommonModule,
